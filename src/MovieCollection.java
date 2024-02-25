@@ -67,13 +67,39 @@ public class MovieCollection {
     }
 
     private void searchTitles() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Search for a Movie: ");
-        String search = scan.nextLine();
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getTitle().contains(search)) {
-                System.out.println(movies.get(i).getTitle());
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter part of a title: ");
+        String search = scanner.nextLine().trim().toLowerCase();
+
+        boolean found = false;
+        for (Movie movie : movies) {
+            if (movie.getTitle().toLowerCase().contains(search)) {
+                System.out.println(movie.getTitle());
+                found = true;
             }
+        }
+        if (!found) {
+            System.out.println("No matching movies found.");
+        }
+    }
+
+    private void searchCast() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter part of a cast member's name: ");
+        String search = scanner.nextLine().trim().toLowerCase();
+
+        boolean found = false;
+        for (Movie movie : movies) {
+            String[] castMembers = movie.getCast().split(",");
+            for (String castMember : castMembers) {
+                if (castMember.trim().toLowerCase().contains(search)) {
+                    System.out.println(castMember.trim());
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("No matching cast members found.");
         }
     }
 }
